@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Agri-Horticultural Price Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .top-bar {
+      background-color:rgb(8, 0, 0);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .top-bar{            
+      
+      
+      color: #ffffff;
+      font-weight: bold;
+      
+    }
+    .top-bar P{
+      margin-right: 530PX;
+      padding-top: 20PX;
+    }
+
+    body {
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      font-family: 'Segoe UI', sans-serif;
+      color: #000000;
+    }
+
+    .card {
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 550px;
+      height: 600px;
+      margin: 0 auto;
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.21);
+    }
+
+    .dark-mode {
+      background: linear-gradient(145deg, #1a1a2e, #16213e);
+      color: #f0f0f0;
+    }
+
+    .dark-mode .card {
+      background-color: rgba(51, 65, 85, 0.95);
+      color: #f0f0f0;
+    }
+
+    .dark-mode select,
+    .dark-mode input,
+    .dark-mode button {
+      background-color: #475569;
+      color: #f8fafc;
+    }
+
+    #priceResult {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    #predictedValue {
+      font-size: 2rem;
+      display: inline-block;
+    }
+    body{
+    
+    }
+
+  </style>
+</head>
+
+<body style="background-image: url(1853597.jpg);">
+  <div class="top-bar">
+    
+   <h4>   <span>👤 Welcome</span></h4>
+    <h4> <p>WEATHERLY</p></h4>
+    
+  </div>
+  <div class="container my-4">
+    <div class="d-flex justify-content-end mb-3">
+      <button onclick="toggleDarkMode()" class="form-select w-auto">🌗 Toggle Dark Mode</button>
+      <select onchange="changeLang(this.value)" class="form-select w-auto" id="language">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="hi">हिंदी</option>
+      </select>
+    </div>
+
+    <div class="card p-4">
+      <h2 class="text-center mb-4" data-en="🌾  Weather Prediction on Agri-Horticultural  🌾" data-ta="🌾 வேளாண்-தோட்டக்கலை விலை கணிப்பான் 🌾" data-hi="🌾 कृषि-उद्यान मूल्य पूर्वानुमान 🌾">
+        🌾 Weather Prediction on Agri-Horticultural 🌾
+      </h2>
+
+      <!-- Prediction Form -->
+      <form id="predictionForm" onsubmit="return false;">
+        <div class="mb-3">
+          <label class="form-label lang" data-en="Select Commodity:" data-ta="தானியம் தேர்வு செய்க:" data-hi="कृषि उत्पाद चुनें:">Select Commodity:</label>
+          <select id="commodity" class="form-select">
+            <option value="Onion">🧅 <span class="translate" data-en="Onion" data-ta="வெங்காயம்" data-hi="प्याज">Onion</span></option>
+            <option value="Potato">🥔 <span class="translate" data-en="Potato" data-ta="உருளைக்கிழங்கு" data-hi="आलू">Potato</span></option>
+            <option value="Tomato">🍅 <span class="translate" data-en="Tomato" data-ta="தக்காளி" data-hi="टमाटर">Tomato</span></option>
+            <option value="Carrot">🥕 <span class="translate" data-en="Carrot" data-ta="காரட்" data-hi="गाजर">Carrot</span></option>
+            <option value="Cucumber">🥒 <span class="translate" data-en="Cucumber" data-ta="வெள்ளரிக்காய்" data-hi="खीरा">Cucumber</span></option>
+            <option value="Brinjal">🍆 <span class="translate" data-en="Brinjal" data-ta="கத்திரிக்காய்" data-hi="बैंगन">Brinjal</span></option>
+            <option value="GreenChilli">🌶️ <span class="translate" data-en="Green Chilli" data-ta="பச்சை மிளகாய்" data-hi="हरी मिर्च">Green Chilli</span></option>
+            <option value="Garlic">🧄 <span class="translate" data-en="Garlic" data-ta="பூண்டு" data-hi="लहसुन">Garlic</span></option>
+            <option value="Pumpkin">🎃 <span class="translate" data-en="Pumpkin" data-ta="பூசணிக்காய்" data-hi="कद्दू">Pumpkin</span></option>
+            <option value="Peas">🟢 <span class="translate" data-en="Peas" data-ta="பட்டாணி" data-hi="मटर">Peas</span></option>
+            <option value="LadyFinger">🧤 <span class="translate" data-en="Lady Finger" data-ta="வெண்டை" data-hi="भिंडी">Lady Finger</span></option>
+            <option value="Beetroot">🟥 <span class="translate" data-en="Beetroot" data-ta="பீட்ரூட்" data-hi="चुकंदर">Beetroot</span></option>
+            <option value="Radish">⚪ <span class="translate" data-en="Radish" data-ta="முள்ளங்கி" data-hi="मूली">Radish</span></option>
+            <option value="Cabbage">🥬 <span class="translate" data-en="Cabbage" data-ta="முட்டைகோஸ்" data-hi="पत्ता गोभी">Cabbage</span></option>
+            <option value="Cauliflower">🥦 <span class="translate" data-en="Cauliflower" data-ta="பூக்கோஸ்" data-hi="फूलगोभी">Cauliflower</span></option>
+            
+            <!-- Fruits -->
+            <option value="Mango">🥭 <span class="translate" data-en="Mango" data-ta="மாம்பழம்" data-hi="आम">Mango</span></option>
+            <option value="Banana">🍌 <span class="translate" data-en="Banana" data-ta="வாழைப்பழம்" data-hi="केला">Banana</span></option>
+            <option value="Apple">🍎 <span class="translate" data-en="Apple" data-ta="ஆப்பிள்" data-hi="सेब">Apple</span></option>
+            <option value="Pineapple">🍍 <span class="translate" data-en="Pineapple" data-ta="அன்னாசி" data-hi="अनानास">Pineapple</span></option>
+            <option value="Orange">🍊 <span class="translate" data-en="Orange" data-ta="ஆரஞ்சு" data-hi="संतरा">Orange</span></option>
+            <option value="Guava">🍈 <span class="translate" data-en="Guava" data-ta="கொய்யாப்பழம்" data-hi="अमरूद">Guava</span></option>
+            <option value="Pomegranate">🍎 <span class="translate" data-en="Pomegranate" data-ta="மாதுளை" data-hi="अनार">Pomegranate</span></option>
+            <option value="Papaya">🍈 <span class="translate" data-en="Papaya" data-ta="பப்பாளி" data-hi="पपीता">Papaya</span></option>
+            <option value="Watermelon">🍉 <span class="translate" data-en="Watermelon" data-ta="தர்பூசணி" data-hi="तरबूज">Watermelon</span></option>
+            <option value="Grapes">🍇 <span class="translate" data-en="Grapes" data-ta="திராட்சை" data-hi="अंगूर">Grapes</span></option>
+            <option value="Lemon">🍋 <span class="translate" data-en="Lemon" data-ta="எலுமிச்சை" data-hi="नींबू">Lemon</span></option>
+            
+            <!-- Grains -->
+            <option value="Rice">🍚 <span class="translate" data-en="Rice" data-ta="அரிசி" data-hi="चावल">Rice</span></option>
+            <option value="Wheat">🌾 <span class="translate" data-en="Wheat" data-ta="கோதுமை" data-hi="गेहूं">Wheat</span></option>
+            <option value="Barley">🌾 <span class="translate" data-en="Barley" data-ta="பார்லி" data-hi="जौ">Barley</span></option>
+            <option value="Sorghum">🌾 <span class="translate" data-en="Sorghum" data-ta="சோளம்" data-hi="ज्वार">Sorghum</span></option>
+            <option value="Oats">🥣 <span class="translate" data-en="Oats" data-ta="ஒட்ஸ்" data-hi="जई">Oats</span></option>
+            <option value="Corn">🌽 <span class="translate" data-en="Corn" data-ta="சோளம்" data-hi="मक्का">Corn</span></option>
+            <option value="Millet">🌾 <span class="translate" data-en="Millet" data-ta="கம்பு" data-hi="बाजरा">Millet</span></option>
+            
+            <!-- Spices -->
+            <option value="Turmeric">🧡 <span class="translate" data-en="Turmeric" data-ta="மஞ்சள்" data-hi="हल्दी">Turmeric</span></option>
+            <option value="BlackPepper">⚫ <span class="translate" data-en="Black Pepper" data-ta="மிளகு" data-hi="काली मिर्च">Black Pepper</span></option>
+            <option value="Cardamom">🟢 <span class="translate" data-en="Cardamom" data-ta="ஏலக்காய்" data-hi="इलायची">Cardamom</span></option>
+            <option value="Clove">🧸 <span class="translate" data-en="Clove" data-ta="கிராம்பு" data-hi="लौंग">Clove</span></option>
+            <option value="Cinnamon">🌰 <span class="translate" data-en="Cinnamon" data-ta="இலவங்கப்பட்டை" data-hi="दालचीनी">Cinnamon</span></option>
+            <option value="Mustard">💛 <span class="translate" data-en="Mustard" data-ta="கடுகு" data-hi="सरसों">Mustard</span></option>
+            </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label lang" data-en="Temperature (°C):" data-ta="வெப்பநிலை (°C):" data-hi="तापमान (°C):">🌡️Temperature (°C):</label>
+          <input type="number" id="temperature" class="form-control" value="31" step="0.1">
+        </div>
+        <div class="mb-3">
+          <label class="form-label lang" data-en="Rainfall (mm):" data-ta="மழை (மிமீ):" data-hi="वर्षा (मिमी):">☔Rainfall (mm):</label>
+          <input type="number" id="rainfall" class="form-control" value="5.0" step="0.1">
+        </div>
+        <div class="mb-3">
+          <label class="form-label lang" data-en="Predicted Yield (tons/acre):" data-ta="முன்னறியப்பட்ட விளைச்சல் (டன்கள்/ஏக்கர்):" data-hi="पूर्वानुमान उपज (टन/एकड़):">🌾Predicted Yield (tons/acre):</label>
+          <input type="number" id="userYield" class="form-control" value="7" step="0.1">
+        </div>
+        <button type="button" class="btn btn-primary w-100 lang" onclick="predictPrice()" data-en="🔍 Predict Price" data-ta="🔍 விலை கணிக்கவும்" data-hi="🔍 कीमत अनुमान लगाएं">🔍 Predict Price</button>
+      </form>
+
+      <!-- Results Section -->
+      <div id="result" class="form-select w-auto" style="display: none;">
+        <div class="alert alert-info text-center mt-4" style="font-size: 1.3rem;">
+          <p><strong>📌 Commodity:</strong> <span id="selectedCommodity"></span> &nbsp;&nbsp; <strong>🌡️Temperature:</strong> <span id="selectedTemperature"></span> °C &nbsp;&nbsp; <strong>☔ Rainfall:</strong> <span id="selectedRainfall"></span> mm</p>
+          <p style="font-size: 1.8rem;"><strong>💰 Price:</strong> ₹<span id="predictedValue"></span></p>
+          <p style="font-size: 1.5rem;"><strong>🌾 Predicted Yield:</strong> <span id="predictedYield"></span> tons/acre</p>
+        </div>
+        <canvas id="priceChart" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dark mode toggle function
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Language change function
+    function changeLang(lang) {
+      document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+        const newText = el.getAttribute('data-' + lang);
+        if (newText) el.innerText = newText;
+      });
+    }
+
+    // Prediction function
+    function predictPrice() {
+      const temp = parseFloat(document.getElementById('temperature').value);
+      const rain = parseFloat(document.getElementById('rainfall').value);
+      const commodity = document.getElementById('commodity').value;
+      const userYield = parseFloat(document.getElementById('userYield').value);
+      
+      const basePrices = {
+        'Onion': 12,
+        'Potato': 10,
+        'Pulses': 50,
+        'Tomato': 14,
+        'Rice': 25,
+        'Wheat': 22,
+        'Sugar': 20
+      };
+
+      // Calculate predicted price
+      const base = basePrices[commodity] || 20;
+      const predictedPrice = (base + temp * 0.1 + rain * 0.2 + userYield * 0.3).toFixed(2);
+      const predictedYield = (userYield).toFixed(2);
+
+      document.getElementById('selectedCommodity').innerText = commodity;
+      document.getElementById('selectedTemperature').innerText = temp;
+      document.getElementById('selectedRainfall').innerText = rain;
+      document.getElementById('predictedValue').innerText = predictedPrice;
+      document.getElementById('predictedYield').innerText = predictedYield;
+      document.getElementById('result').style.display = 'block';
+
+      // Generate price chart
+      const ctx = document.getElementById('priceChart').getContext('2d');
+      if (window.myChart) window.myChart.destroy();
+      window.myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Prediction'],
+          datasets: [{
+            label: 'Price (₹)',
+            data: [14, 15, 17, 18, predictedPrice],
+            borderColor: 'rgba(34, 197, 94, 1)',
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#22c55e',
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

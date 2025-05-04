@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #37474f;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    height: 400px;
+    color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(255, 181, 181, 0);
+    box-decoration-break: slice;background: rgba(255, 255, 255, 0); /* Slight transparency */
+    backdrop-filter: blur(10px); /* The blur effect */
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.left-info{
+    width: 260px;
+    height: 100%;
+    float: left;
+    display: flex;
+    border-radius: 25px;
+    justify-content: center;
+    background: url("photo-1674976645516-7b20134fdeb3.avif");
+    background-position: center;
+    background-size: cover;
+    transform: scale(1.03) perspective(200px);
+    cursor: pointer;
+    box-shadow: 0 0 20px -10px rrgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.left-info:hover{
+    transform: scale(1.1) perspective(2500px) rotateY(5deg);
+}
+
+.pic-gradient{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #feffff00 10%, #85b09e00 100%);
+    border-radius: 25px;
+    opacity: 0.5;
+}
+
+.today-info{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.today-weather{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    bottom: 20px;
+    left: 20px;
+}
+
+.today-weather .bx{
+    font-size: 4.6rem;
+}
+
+.weather-temp{
+    font-weight: 700;
+    font-size: 3.5rem;
+}
+
+.right-info{
+    float: right;
+    position: relative;
+    height: 100%;
+    padding-top: 25px;
+}
+
+.day-info{
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.day-info div:not(:last-child){
+    margin-bottom: 6px;
+}
+
+.day-info div .title{
+    font-weight: 700;
+}
+
+.day-info div .value{
+    float: right;
+}
+
+.days-list{
+    display: flex;
+    list-style: none;
+    margin: 10px 35px;
+    box-shadow: 0 5px 15px rgba(250, 250, 250, 0.336);
+    border-radius: 10px;
+}
+
+.days-list li{
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.days-list li .bx{
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.days-list li:hover{
+    transform: scale(1.1);
+    background: #ffffff49;
+    color: #f9fafd6f;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.days-list li .day-temp{
+    margin-top: 6px;
+    font-weight: 700;
+}
+
+.btn-container{
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loc-button,
+.profile-button{
+    outline: none;
+    width: 100%;
+    border: none;
+    font-weight: 700;
+    border-radius: 25px;
+    padding: 10px;
+    background: #303f9f;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.loc-button:hover,
+.profile-button:hover{
+    background: #1a237e;
+}
+
+.profile-button {
+    background: #00897b;
+}
+
+.profile-button:hover {
+    background: #00695c;
+}
+
+.profile-button .bx {
+    font-size: 1.2rem;
+}
+
+
+body{
+    overflow-y: hidden;
+}
+.last{
+    margin-right: 100px;
+    padding-right: 100px;
+}
+
+.last a{
+    text-transform: none;
+    text-decoration: none;
+    font-weight: bolder;
+    color: #fbf7f7;
+    border: 2px solid rgba(255, 0, 0, 0.607);
+    border-radius: 54px;
+    padding: 5px;
+    background-color:rgba(255, 0, 0, 0.607);
+   
+    
+}
